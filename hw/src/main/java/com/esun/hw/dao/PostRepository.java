@@ -17,4 +17,7 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     @Procedure("update_post")
     public void updatePost(@Param("p_post_id") UUID postId, @Param("p_post_content") String postContent,
             @Param("p_created_at") Instant currentTime);
+
+    @Procedure("delete_post")
+    public void deletePost(@Param("p_post_id") UUID postId, @Param("p_user_id") UUID reqUserId);
 }

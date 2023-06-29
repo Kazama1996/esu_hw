@@ -21,3 +21,14 @@ BEGIN
 	DELETE FROM posts WHERE post_id = p_post_id AND user_id = p_user_id;
 END;
 $$ LANGUAGE plpgsql;
+
+
+-- READ post
+CREATE OR REPLACE FUNCTION read_post(p_user_id UUID)
+RETURNS TABLE (post_content VARCHAR(255), created_at TIMESTAMP WITH TIME ZONE)
+AS $$
+BEGIN
+    RETURN QUERY SELECT posts.post_content, posts.created_at FROM posts WHERE posts.user_id = p_user_id;
+END;
+$$ LANGUAGE plpgsql;
+

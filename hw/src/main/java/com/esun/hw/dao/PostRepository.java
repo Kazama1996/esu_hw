@@ -1,12 +1,15 @@
 package com.esun.hw.dao;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
+import com.esun.hw.dto.response.PostResponseDto;
 import com.esun.hw.model.Post;
 
 public interface PostRepository extends JpaRepository<Post, UUID> {
@@ -20,4 +23,7 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
 
     @Procedure("delete_post")
     public void deletePost(@Param("p_post_id") UUID postId, @Param("p_user_id") UUID reqUserId);
+
+    @Query(value = "SELECT * FROM read_post(:p_user_id)", nativeQuery = true)
+    public List<Object[]> readPost(@Param("p_user_id") UUID userId);
 }

@@ -8,4 +8,6 @@ public interface PostService {
 
     public ResponseEntity<?> createPost(UUID reqUserId, String content);
 
+    public ResponseEntity<?> updatePost(UUID reqUserId, UUID postId, String content);
+
 }

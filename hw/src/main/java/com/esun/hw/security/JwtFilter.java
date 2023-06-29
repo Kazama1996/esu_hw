@@ -67,6 +67,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 throw new AppException(HttpStatus.UNAUTHORIZED, "User Not found");
             }
 
+            request.setAttribute("reqUserId", reqUser.getUserId());
+
             filterChain.doFilter(request, response);
         } catch (AppException e) {
             ErrorResponse errorResponse = ErrorResponse.builder(e, e.getStatus(), e.getErrorMessage()).build();

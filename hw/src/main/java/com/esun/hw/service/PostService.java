@@ -10,4 +10,6 @@ public interface PostService {
 
     public ResponseEntity<?> updatePost(UUID reqUserId, UUID postId, String content);
 
+    public ResponseEntity<?> deletePost(UUID reqUserId, UUID postId);
+
 }

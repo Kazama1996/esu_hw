@@ -46,4 +46,18 @@ public class PostServiceIpml implements PostService {
 
     }
 
+    @Override
+    public ResponseEntity<?> deletePost(UUID reqUserId, UUID postId) {
+
+        Post targetPost = postRepository.findById(postId).get();
+
+        if (!targetPost.getUserId().toString().equals(reqUserId.toString())) {
+            return new ResponseEntity<>("This post is not belong to you", HttpStatus.BAD_REQUEST);
+        }
+
+        postRepository.deletePost(postId, reqUserId);
+
+        return new ResponseEntity<>("you delete a post", HttpStatus.OK);
+    }
+
 }

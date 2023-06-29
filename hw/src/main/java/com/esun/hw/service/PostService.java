@@ -12,4 +12,6 @@ public interface PostService {
 
     public ResponseEntity<?> deletePost(UUID reqUserId, UUID postId);
 
+    public ResponseEntity<?> readPost(UUID userId);
+
 }

@@ -1,6 +1,8 @@
 package com.esun.hw.service.Ipml;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import com.esun.hw.dao.PostRepository;
+import com.esun.hw.dto.response.PostResponseDto;
 import com.esun.hw.model.Post;
 import com.esun.hw.service.PostService;
 
@@ -58,6 +61,21 @@ public class PostServiceIpml implements PostService {
         postRepository.deletePost(postId, reqUserId);
 
         return new ResponseEntity<>("you delete a post", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> readPost(UUID userId) {
+        List<PostResponseDto> resBody = new ArrayList<PostResponseDto>();
+        List<Object[]> results = postRepository.readPost(userId);
+        for (Object[] row : results) {
+            PostResponseDto post = PostResponseDto.builder().content((String) row[0]).createdAt((Instant) row[1])
+                    .build();
+            // post.setPostContent((String) row[0]);
+            // post.setCreatedAt((Timestamp) row[1]);
+            resBody.add(post);
+        }
+
+        return ResponseEntity.ok().body(resBody);
     }
 
 }

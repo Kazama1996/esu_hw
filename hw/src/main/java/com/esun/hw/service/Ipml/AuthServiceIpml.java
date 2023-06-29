@@ -70,9 +70,6 @@ public class AuthServiceIpml implements AuthService {
         ResponseCookie cookie = ResponseCookie.from("jwt", jwt).httpOnly(true).secure(true).domain("localhost")
                 .path("/").sameSite("Lax").build();
 
-        System.out.println(jwt);
-        System.out.println(cookie.toString());
-
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body("Login success!! Welcome~~");
 
     }
